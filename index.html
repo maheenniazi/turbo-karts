@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Turbo Karts</title>
+  <meta name="theme-color" content="#1b1f3b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Turbo Karts">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="tags"></div>
+  <div id="error" class="overlay" hidden></div>
+
+  <!-- Title / setup / online lobby -->
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <h1 class="logo">TURBO<span>KARTS</span></h1>
+      <div id="roomBar" hidden>
+        <div class="roomHead">
+          <b>🌐 Room <span id="roomCode"></span></b>
+          <button id="inviteBtn" class="invite">📨 Invite friends</button>
+          <button id="leaveBtn">Leave</button>
+        </div>
+        <div id="inviteLink"></div>
+        <ul id="players"></ul>
+      </div>
+      <div class="cols">
+        <section>
+          <h3>Your name</h3>
+          <input id="nameInput" maxlength="14" placeholder="Type your name" autocomplete="off" autocorrect="off" spellcheck="false">
+          <h3>Racer</h3>
+          <div id="racers" class="grid"></div>
+          <h3><span id="scoresTitle">Scoreboard</span> <button id="resetScores" class="tiny">Reset</button></h3>
+          <ol id="scoreboard" class="scores"></ol>
+        </section>
+        <section>
+          <h3>Track</h3>
+          <div id="tracks"></div>
+          <h3>Speed</h3>
+          <div id="ccs" class="row"></div>
+          <h3>Laps</h3>
+          <div id="lapsRow" class="row"></div>
+          <div id="bestTime"></div>
+          <div class="startRow">
+            <button id="startBtn" class="big">RACE!</button>
+            <button id="onlineBtn" class="online">🌐 Race Online</button>
+            <button id="muteBtn" class="icon" aria-label="Toggle sound">🔊</button>
+          </div>
+          <div id="menuNote"></div>
+        </section>
+      </div>
+      <p id="help"></p>
+    </div>
+  </div>
+
+  <!-- In-race HUD -->
+  <div id="hud" hidden>
+    <div id="hudTL"><div id="lap">LAP 1/10</div><div id="time">0:00.00</div></div>
+    <div id="items">
+      <div id="item1" class="slot"><span></span></div>
+      <div id="item2" class="slot small"><span></span></div>
+      <div id="champ" hidden>👑 CHAMPION</div>
+    </div>
+    <div id="place">8<sup>th</sup></div>
+    <canvas id="minimap" width="160" height="160"></canvas>
+    <div id="speed"></div>
+    <button id="pauseBtn" aria-label="Pause"><i></i><i></i></button>
+    <div id="wrongway" hidden>WRONG WAY!</div>
+  </div>
+  <div id="banner"></div>
+
+  <!-- Mini-game overlays -->
+  <div id="mg" hidden>
+    <div id="mgCard" class="mgCard" hidden></div>
+    <div id="mgTop" hidden></div>
+    <div id="mgLight" hidden></div>
+  </div>
+
+  <!-- Touch controls (iPhone / iPad) -->
+  <div id="touch" hidden>
+    <div id="steerZone"><div id="steerHint">Touch &amp; slide here to steer</div></div>
+    <div id="stick"><span>◀</span><div id="stickKnob"></div><span>▶</span></div>
+    <div id="btns">
+      <button id="bItem">ITEM</button>
+      <button id="bBrake">BRAKE</button>
+      <button id="bDrift">DRIFT</button>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay" hidden>
+    <div class="panel small">
+      <h2>Paused</h2>
+      <button id="resumeBtn" class="big">Resume</button>
+      <button id="restartBtn">Restart</button>
+      <button id="quitBtn">Quit to Menu</button>
+    </div>
+  </div>
+
+  <div id="results" class="overlay" hidden>
+    <div class="panel small">
+      <h2 id="resultsTitle"></h2>
+      <p id="resultsInfo"></p>
+      <ol id="resultsList"></ol>
+      <h3>Scoreboard</h3>
+      <ol id="resultsScores" class="scores"></ol>
+      <p id="resultsWait" hidden>Waiting for the host to start the next race…</p>
+      <div class="startRow">
+        <button id="againBtn" class="big">Race Again</button>
+        <button id="nextBtn">Next Track</button>
+        <button id="menuBtn">Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js');
+  </script>
+</body>
+</html>

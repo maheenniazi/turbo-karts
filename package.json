@@ -1,0 +1,11 @@
+{
+  "name": "turbo-karts",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Kart racer for iPhone, iPad and Mac with online multiplayer",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server/server.js"
+  }
+}
