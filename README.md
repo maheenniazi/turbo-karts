@@ -1,8 +1,18 @@
 # 🏁 Turbo Karts
 
-A kart racer in the style of Mario Kart for **iPhone, iPad and Mac**, with **online races against friends**. It has no dependencies: a custom WebGL renderer, synthesized sound, and a small Node.js game server that uses only built-in modules.
+**A Mario Kart–style racer for iPhone, iPad and Mac, with online races against up to 8 friends.**
 
-## Features
+Everything is written from scratch with **zero dependencies**: a custom WebGL renderer, synthesized sound, physics, CPU racers, six mini-games, and an authoritative multiplayer server built only from Node's built-in modules.
+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES%20modules-F7DF1E?logo=javascript&logoColor=black)
+![WebGL](https://img.shields.io/badge/WebGL-custom%20renderer-990000?logo=webgl&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=nodedotjs&logoColor=white)
+![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![PWA](https://img.shields.io/badge/PWA-installable-5A0FC8?logo=pwa&logoColor=white)
+
+---
+
+## ✨ Features
 - **Custom names** and 8 racer colours
 - **Online multiplayer:** create a room, send the invite link, and race up to 8 people. CPU racers fill any empty spots.
 - **Big, flowing tracks** with wide sweeping turns built for drifting
@@ -27,7 +37,7 @@ A kart racer in the style of Mario Kart for **iPhone, iPad and Mac**, with **onl
 - **Drift mini-turbos in 3 tiers:** hold drift through a turn and release on 🔵 blue, 🟠 orange or 🟣 purple sparks (Ultra Turbo)
 - Rocket starts, boost pads, minimap, name tags, and best times
 
-## Controls
+## 🎮 Controls
 | | Mac keyboard | iPhone / iPad | Controller |
 |---|---|---|---|
 | Steer | ← → / A D | Thumb anywhere on the left half, slide left/right | Left stick / D-pad |
@@ -37,9 +47,10 @@ A kart racer in the style of Mario Kart for **iPhone, iPad and Mac**, with **onl
 | Item | E / X | ITEM | X / Y |
 | Pause | Esc / P | ❚❚ | Menu |
 
-## Run it on your computer
-You need [Node.js](https://nodejs.org) 18 or newer. There's nothing to install.
+## 🚀 Run it on your computer
+You need [Node.js](https://nodejs.org) 18 or newer. There's nothing to `npm install`.
 ```bash
+git clone https://github.com/maheenniazi/turbo-karts.git
 cd turbo-karts
 npm start
 # open http://localhost:8000
@@ -49,17 +60,16 @@ The server hosts both the game and online rooms.
 - **Online on your own Wi-Fi:** other devices on the same network can join. Open `http://<your-computer's-IP>:8000` on them, or use the invite link, but only after changing `localhost` in it to your computer's IP.
 - **Solo only:** you can serve the folder with any static web server instead, such as `python3 -m http.server`. Online play won't work that way.
 
-## Put it online so friends anywhere can join (free, about 10 minutes)
+## 🌍 Put it online so friends anywhere can join (free, about 10 minutes)
 Invite links only work for friends elsewhere if the server is on the internet. [Render](https://render.com) is one free option:
 
-1. Push the `turbo-karts` folder to a GitHub repository.
+1. Fork this repository (or push your copy to GitHub).
 2. On Render, choose **New → Web Service** and pick that repository.
 3. Settings:
    - **Runtime:** Node
    - **Build command:** leave empty
    - **Start command:** `npm start`
    - **Instance type:** Free
-   - **Root directory:** set this to `turbo-karts` if that folder isn't the repository root.
 4. Open the `https://….onrender.com` address it gives you, tap **🌐 Race Online**, then **📨 Invite friends**.
 
 A free Render server goes to sleep after a while without visitors, and the first visit afterwards takes about 30–60 seconds to wake it. Other Node hosts (Fly.io, Railway, a VPS) work the same way. The server reads its port from the `PORT` environment variable.
@@ -68,7 +78,7 @@ On iPhone/iPad, open the address in Safari and tap **Share → Add to Home Scree
 
 **Game files and server on different hosts:** add `?server=https://your-server.example` to the game's URL. Invite links carry this setting over.
 
-## Code layout
+## 🗂️ Code layout
 ```
 index.html, style.css      Menus, online lobby, HUD, touch controls
 js/sim.js                  Tracks, physics, items, AI, laps, mini-games, network snapshots (runs in browser and server)
@@ -78,9 +88,11 @@ js/gl.js, js/math.js       Small WebGL renderer
 js/input.js, js/audio.js   Keyboard/touch/controller input and synthesized sound
 js/net.js                  WebSocket client
 server/server.js           Game server: static files, WebSocket rooms, authoritative race loop, scoreboard
+sw.js, manifest.webmanifest  Offline support + Add to Home Screen
 ```
 
-## How online play works
-The server runs the real race: CPU racers, items, laps, mini-games and scoring. Each player's device drives its own kart, so steering has no lag, and sends the kart's position to the server 30 times a second. The server sends everyone the full race state 20 times a second. Reaction Duel times are measured on each player's own device, so a slow connection doesn't hurt your score.
+## 📡 How online play works
+The server runs the real race: CPU racers, items, laps, mini-games and scoring. Each player's device drives its own kart, so steering has no lag, and sends the kart's position to the server 30 times a second. The server sends everyone the full race state 20 times a second. Quick Draw reaction times are measured on each player's own device, so a slow connection doesn't hurt your score.
 
+## 🛠️ Adding a track
 To add a track, append an entry to `TRACKS` in `js/sim.js`: control points (an optional third number narrows the road there), a difficulty, and a colour theme.
